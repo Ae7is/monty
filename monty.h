@@ -29,8 +29,16 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+typedef void (*op_func)(stack_t **stack, unsigned int line_number);
+
+extern char *current_arg;
+extern int queue_mode;
+
+void run_file(FILE *file);
 void execute_line(char *line, stack_t **stack, unsigned int line_number);
+op_func get_op_func(char *opcode);
 void free_stack(stack_t *stack);
+int is_integer(char *s);
 
 void push_opcode(stack_t **stack, unsigned int line_number);
 void pall_opcode(stack_t **stack, unsigned int line_number);
@@ -43,7 +51,11 @@ void sub_opcode(stack_t **stack, unsigned int line_number);
 void div_opcode(stack_t **stack, unsigned int line_number);
 void mul_opcode(stack_t **stack, unsigned int line_number);
 void mod_opcode(stack_t **stack, unsigned int line_number);
-
-extern char *current_arg;
+void pchar_opcode(stack_t **stack, unsigned int line_number);
+void pstr_opcode(stack_t **stack, unsigned int line_number);
+void rotl_opcode(stack_t **stack, unsigned int line_number);
+void rotr_opcode(stack_t **stack, unsigned int line_number);
+void stack_opcode(stack_t **stack, unsigned int line_number);
+void queue_opcode(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
